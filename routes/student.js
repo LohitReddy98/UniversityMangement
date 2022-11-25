@@ -34,7 +34,7 @@ router.get("/:stuId", async (req, res) => {
     try {
         const stm = 'select * from  STU_INFO where stuId=?'
         const result = await pool.query(stm, [req.query.stuId]);
-        res.send(result.body)
+        res.send(result)
     } catch (err) {
         res
             .status(500)
