@@ -19,7 +19,6 @@ router.put("/", async (req, res) => {
     try {
         const stm = 'insert into STU_AUTH (email , password, createdDate) values (?,?,NOW())'
         await pool.query(stm, [pass, email]);
-        await recentVotesQuery;
         res.send('successfully added')
     } catch (err) {
         res
@@ -32,7 +31,7 @@ router.get("/", async (req, res) => {
     // const pass = req.body.pass
     // const email = req.body.email
     try {
-        const x = pool.query('select * from ADMIN_AUTH');
+        const x =await pool.query('select * from ADMIN_AUTH');
         res.send(x)
     } catch (err) {
         res
@@ -52,7 +51,7 @@ router.post("/", async (req, res) => {
         return res.send('successfully added')
     else {
         console.log("Error")
-        res.statusCode(401)
+        res.sendStatus(401)
     }
 })
 
