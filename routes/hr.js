@@ -20,7 +20,7 @@ router.put("/", async (req, res) => {
     const cmpId = req.body.cmpId
 
     try {
-        const stm = 'insert into HR_AUTH (cmpId, email , password, createdDate,name) values (?,?,?,NOW(),?)'
+        const stm = 'insert into HR_AUTH (cmpId, email , password,name) values (?,?,?,?)'
         await pool.query(stm, [cmpId, pass, email, name]);
         res.send('successfully added')
     } catch (err) {
