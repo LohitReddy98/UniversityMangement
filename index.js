@@ -36,6 +36,16 @@ app.use(async (req, res, next) => {
 });
 const userRouter = require("./routes/student")
 app.use("/student", userRouter)
+const userRouter = require("./routes/hr")
+app.use("/hr", userRouter)
+const userRouter = require("./routes/company")
+app.use("/company", userRouter)
+const userRouter = require("./routes/admin")
+app.use("/admin", userRouter)
+const userRouter = require("./routes/job")
+app.use("/job", userRouter)
+const userRouter = require("./routes/jobApp")
+app.use("/jobApp", userRouter)
 
 /**
  * Responds to GET and POST requests for TABS vs SPACES sample app.

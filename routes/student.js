@@ -20,7 +20,7 @@ router.put("/", async (req, res) => {
         const stm = 'insert into STU_AUTH (email , password, createdDate) values (?,?,NOW())'
         await pool.query(stm, [pass, email]);
         const stm1 = 'insert into STU_INFO (name , phone, about,stuId,skills,address) values (?,?,?,LAST_INSERT_ID(),?,?)'
-        await pool.query(stm1, [req.body.name, req.body.phone,req.body.about,req.body.skills,req.body.address]);
+        await pool.query(stm1, [req.body.name, req.body.phone, req.body.about, req.body.skills, req.body.address]);
         res.send('successfully added')
     } catch (err) {
         res
@@ -29,6 +29,20 @@ router.put("/", async (req, res) => {
             .end();
     }
 })
+router.get("/:stuId", async (req, res) => {
+
+    try {
+        const stm = 'select * from  STU_INFO where stuId=?'
+        const result = await pool.query(stm, [req.query.stuId]);
+        res.send(result.body)
+    } catch (err) {
+        res
+            .status(500)
+            .send('Unable to load page. Please check the application logs for more details.')
+            .end();
+    }
+})
+
 
 router.post("/", async (req, res) => {
     const pass = req.body.pass
