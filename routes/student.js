@@ -1,7 +1,18 @@
 const express = require("express")
 const router = express.Router()
-const { pool } = require("../index.js")
+const getPool = require("../index.js")
+let pool
 
+router.use(async (req, res, next) => {
+    try {
+        pool = getPool();
+        next();
+    }
+    catch (err) {
+        return next(err);
+    }
+
+})
 router.put("/", async (req, res) => {
     const pass = req.body.pass
     const email = req.body.email
@@ -21,7 +32,7 @@ router.get("/", async (req, res) => {
     // const pass = req.body.pass
     // const email = req.body.email
     try {
-        const x= pool.query('select * from ADMIN_AUTH');
+        const x = pool.query('select * from ADMIN_AUTH');
         res.send(x)
     } catch (err) {
         res

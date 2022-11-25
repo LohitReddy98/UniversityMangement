@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { app } = require('../index.js');
+const app = require('../index.js');
 
 const PORT = parseInt(process.env.PORT) || 8080;
 const server = app.listen(PORT, () => {

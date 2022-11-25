@@ -1,11 +1,7 @@
 'use strict';
 
 const express = require('express');
-const createTcpPool = require('./connect-tcp.js');
-const createUnixSocketPool = require('./connect-unix.js');
-
 const app = express();
-app.set('view engine', 'pug');
 app.enable('trust proxy');
 
 // Automatically parse request body as form data.
@@ -23,74 +19,21 @@ app.use((req, res, next) => {
 const winston = require('winston');
 const { LoggingWinston } = require('@google-cloud/logging-winston');
 const loggingWinston = new LoggingWinston();
+let getPool = require('./pool');
 let pool;
 const logger = winston.createLogger({
   level: 'info',
   transports: [new winston.transports.Console(), loggingWinston],
 });
-
-// Retrieve and return a specified secret from Secret Manager
-const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
-const client = new SecretManagerServiceClient();
-
-async function accessSecretVersion(secretName) {
-  const [version] = await client.accessSecretVersion({ name: secretName });
-  return version.payload.data;
-}
-
-const createPool = async () => {
-  const config = {
-    connectionLimit: 5,
-    connectTimeout: 10000,
-    acquireTimeout: 10000,
-    waitForConnections: true,
-    queueLimit: 0,
-  };
-
-  const { CLOUD_SQL_CREDENTIALS_SECRET } = process.env;
-  if (CLOUD_SQL_CREDENTIALS_SECRET) {
-    const secrets = await accessSecretVersion(CLOUD_SQL_CREDENTIALS_SECRET);
-    try {
-      process.env.DB_PASS = secrets.toString();
-    } catch (err) {
-      err.message = `Unable to parse secret from Secret Manager. Make sure that the secret is JSON formatted: \n ${err.message} `;
-      throw err;
-    }
-  }
-  if (process.env.INSTANCE_HOST) {
-    return createTcpPool(config);
-  } else if (process.env.INSTANCE_UNIX_SOCKET) {
-    return createUnixSocketPool(config);
-  } else {
-    throw 'Set either the `INSTANCE_HOST` or `INSTANCE_UNIX_SOCKET` environment variable.';
-  }
-};
-
 app.use(async (req, res, next) => {
-  if (pool) {
-    return next();
-  }
   try {
-    pool = await createPool();
+    pool = getPool();
     next();
   } catch (err) {
     logger.error(err);
     return next(err);
   }
 });
-router.get("/", async (req, res) => {
-  // const pass = req.body.pass
-  // const email = req.body.email
-  try {
-      const x= pool.query('select * from ADMIN_AUTH');
-      res.send(x)
-  } catch (err) {
-      res
-          .status(500)
-          .send('Unable to load page. Please check the application logs for more details.')
-          .end();
-  }
-})
 const userRouter = require("./routes/student")
 app.use("/student", userRouter)
 
@@ -102,4 +45,4 @@ app.use("/student", userRouter)
  */
 
 
-module.exports = { app, pool };
+module.exports = app;
