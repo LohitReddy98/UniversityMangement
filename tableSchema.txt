@@ -1,0 +1,75 @@
+desc STU_AUTH;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| stuId       | int          | NO   | PRI | NULL    | auto_increment |
+| email       | varchar(255) | YES  |     | NULL    |                |
+| password    | varchar(255) | YES  |     | NULL    |                |
+| createdDate | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+DESC STU_INFO;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| name    | varchar(255)  | YES  |     | NULL    |       |
+| phone   | varchar(255)  | YES  |     | NULL    |       |
+| about   | varchar(2000) | YES  |     | NULL    |       |
+| stuId   | int           | YES  |     | NULL    |       |
+| skills  | varchar(255)  | YES  |     | NULL    |       |
+| address | varchar(255)  | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+
+DESC ADMIN_AUTH;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| adminId     | int          | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(255) | YES  |     | NULL    |                |
+| email       | varchar(255) | YES  |     | NULL    |                |
+| createdDate | datetime     | YES  |     | NULL    |                |
+| password    | varchar(255) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+DESC COMPANY;
++-------+---------------+------+-----+---------+-------+
+| Field | Type          | Null | Key | Default | Extra |
++-------+---------------+------+-----+---------+-------+
+| cmpId | int           | NO   | PRI | NULL    |       |
+| name  | varchar(255)  | YES  |     | NULL    |       |
+| about | varchar(2000) | YES  |     | NULL    |       |
++-------+---------------+------+-----+---------+-------+
+
+
+DESC HR_AUTH;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| hrId     | int           | NO   | PRI | NULL    |       |
+| cmpId    | int           | YES  |     | NULL    |       |
+| email    | varchar(2000) | YES  |     | NULL    |       |
+| password | varchar(255)  | YES  |     | NULL    |       |
+| name     | varchar(255)  | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+
+
+ DESC JOBS;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| jobId       | int          | NO   | PRI | NULL    |       |
+| cmpId       | int          | YES  |     | NULL    |       |
+| title       | varchar(255) | YES  |     | NULL    |       |
+| openings    | int          | YES  |     | NULL    |       |
+| description | varchar(255) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+
+DESC JOB_APP;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| jobApp | int  | NO   | PRI | NULL    |       |
+| jobId  | int  | YES  |     | NULL    |       |
+| stuId  | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
