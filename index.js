@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 const winston = require('winston');
 const { LoggingWinston } = require('@google-cloud/logging-winston');
 const loggingWinston = new LoggingWinston();
-let getPool = require('./pool');
+let getPool = require('./pool.js');
 let pool;
 const logger = winston.createLogger({
   level: 'info',
@@ -27,7 +27,7 @@ const logger = winston.createLogger({
 });
 app.use(async (req, res, next) => {
   try {
-    pool = getPool();
+    pool = await getPool();
     next();
   } catch (err) {
     logger.error(err);

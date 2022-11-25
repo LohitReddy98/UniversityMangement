@@ -10,9 +10,11 @@ async function accessSecretVersion(secretName) {
 let pool;
 async function getPool() {
     if (pool)
-        pool
+        return pool
     else
-        await createPool;
+        pool = await createPool();
+
+    return pool
 }
 const createPool = async () => {
     const config = {
@@ -41,4 +43,5 @@ const createPool = async () => {
         throw 'Set either the `INSTANCE_HOST` or `INSTANCE_UNIX_SOCKET` environment variable.';
     }
 };
-module.exports = getPool
+
+module.exports = getPool;

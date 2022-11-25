@@ -1,11 +1,11 @@
 const express = require("express")
 const router = express.Router()
-const getPool = require("../index.js")
+const getPool = require("../pool.js")
 let pool
 
 router.use(async (req, res, next) => {
     try {
-        pool = getPool();
+        pool = await getPool();
         next();
     }
     catch (err) {
