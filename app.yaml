@@ -16,7 +16,6 @@ runtime: nodejs16
 # The following env variables may contain sensitive information that grants
 # anyone access to your database. Do not add this file to your source control.
 env_variables:
-  INSTANCE_HOST: 34.122.136.218
   INSTANCE_UNIX_SOCKET: /cloudsql/sunny-web-369306:us-central1:universitydb
   DB_USER: ajay
   DB_PASS: ajay

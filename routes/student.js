@@ -11,7 +11,6 @@ router.put("/", async (req, res) => {
         await recentVotesQuery;
         res.send('successfully added')
     } catch (err) {
-        logger.error(err);
         res
             .status(500)
             .send('Unable to load page. Please check the application logs for more details.')
@@ -25,7 +24,6 @@ router.get("/", async (req, res) => {
         const x= pool.query('select * from ADMIN_AUTH');
         res.send(x)
     } catch (err) {
-        logger.error(err);
         res
             .status(500)
             .send('Unable to load page. Please check the application logs for more details.')
