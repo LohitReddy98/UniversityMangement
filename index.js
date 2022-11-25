@@ -78,7 +78,19 @@ app.use(async (req, res, next) => {
     return next(err);
   }
 });
-
+router.get("/", async (req, res) => {
+  // const pass = req.body.pass
+  // const email = req.body.email
+  try {
+      const x= pool.query('select * from ADMIN_AUTH');
+      res.send(x)
+  } catch (err) {
+      res
+          .status(500)
+          .send('Unable to load page. Please check the application logs for more details.')
+          .end();
+  }
+})
 const userRouter = require("./routes/student")
 app.use("/student", userRouter)
 
