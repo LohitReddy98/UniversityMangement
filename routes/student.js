@@ -19,6 +19,8 @@ router.put("/", async (req, res) => {
     try {
         const stm = 'insert into STU_AUTH (email , password, createdDate) values (?,?,NOW())'
         await pool.query(stm, [pass, email]);
+        const stm1 = 'insert into STU_INFO (name , phone, about,stuId,skills,address) values (?,?,?,LAST_INSERT_ID(),?,?)'
+        await pool.query(stm1, [req.body.name, req.body.phone,req.body.about,req.body.skills,req.body.address]);
         res.send('successfully added')
     } catch (err) {
         res
