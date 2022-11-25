@@ -16,7 +16,7 @@ router.use(async (req, res, next) => {
 router.get("/jobs/:stuId", async (req, res) => {
     try {
         const stm = 'select * from JOBS J,JOB_APP JA WHERE JA.stuId=? and JA.jobId = J.jobId'
-        await pool.query(stm, [req.query.stuId]);
+        await pool.query(stm, [req.params.stuId]);
         res.send('successfully added')
     } catch (err) {
         res
@@ -28,7 +28,7 @@ router.get("/jobs/:stuId", async (req, res) => {
 router.get("/students/:jobId", async (req, res) => {
     try {
         const stm = 'select * from STU_INFO S,JOB_APP JA WHERE JA.jobId=? and JA.stuId = S.stuId'
-        await pool.query(stm, [req.query.jobId]);
+        await pool.query(stm, [req.params.jobId]);
         res.send('successfully added')
     } catch (err) {
         res

@@ -33,7 +33,7 @@ router.get("/:stuId", async (req, res) => {
 
     try {
         const stm = 'select * from  STU_INFO where stuId=?'
-        const result = await pool.query(stm, [req.query.stuId]);
+        const result = await pool.query(stm, [req.params.stuId]);
         res.send(result)
     } catch (err) {
         res
