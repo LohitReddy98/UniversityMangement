@@ -6,8 +6,7 @@ router.put("/", async (req, res) => {
     const pass = req.body.pass
     const email = req.body.email
     try {
-        const stm =
-            'insert into STU_AUTH (email , password, createdDate) values (?,?,NOW())'
+        const stm = 'insert into STU_AUTH (email , password, createdDate) values (?,?,NOW())'
         await pool.query(stm, [pass, email]);
         await recentVotesQuery;
         res.send('successfully added')
@@ -15,13 +14,24 @@ router.put("/", async (req, res) => {
         logger.error(err);
         res
             .status(500)
-            .send(
-                'Unable to load page. Please check the application logs for more details.'
-            )
+            .send('Unable to load page. Please check the application logs for more details.')
             .end();
     }
 })
-
+router.get("/", async (req, res) => {
+    // const pass = req.body.pass
+    // const email = req.body.email
+    try {
+        const x= pool.query('select * from ADMIN_AUTH');
+        res.send(x)
+    } catch (err) {
+        logger.error(err);
+        res
+            .status(500)
+            .send('Unable to load page. Please check the application logs for more details.')
+            .end();
+    }
+})
 
 router.post("/", async (req, res) => {
     const pass = req.body.pass
