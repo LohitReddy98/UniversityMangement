@@ -8,6 +8,9 @@ app.enable('trust proxy');
 app.use(express.urlencoded({ extended: false }));
 // This middleware is available in Express v4.16.0 onwards
 app.use(express.json());
+var cors = require('cors')
+app.use(cors())
+
 
 // Set Content-Type for all responses for these routes.
 app.use((req, res, next) => {
