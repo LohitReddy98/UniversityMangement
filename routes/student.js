@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
         'select  * from  STU_AUTH where email= ? and password=?'
     const result = await pool.query(stm, [pass, email]);
     if (result.length > 0)
-        return res.send(result.stuId)
+        return res.send({ stuId: result.stuId })
     else {
         console.log("Error")
         res.sendStatus(401)
