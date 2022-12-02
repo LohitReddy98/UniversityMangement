@@ -15,7 +15,7 @@ router.use(async (req, res, next) => {
 })
 router.get("/jobs/:stuId", async (req, res) => {
     try {
-        const stm = 'select * from JOBS J,COMPANY C,JOB_APP JA WHERE JA.stuId=? and JA.jobId = J.jobId and C.cmpid=JOBS.cmpId'
+        const stm = 'select * from JOBS J,COMPANY C,JOB_APP JA WHERE JA.stuId=? and JA.jobId = J.jobId and C.cmpId=J.cmpId'
         const r = await pool.query(stm, [parseInt(req.params.stuId)]);
         res.send(r)
     } catch (err) {
