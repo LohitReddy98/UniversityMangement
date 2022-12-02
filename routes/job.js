@@ -26,6 +26,18 @@ router.put("/", async (req, res) => {
             .end();
     }
 })
+router.get("/:cmpId", async (req, res) => {
+    try {
+        const stm = 'select * from JOBS J, COMPANY C where  J.cmpId=C.cmpId and J.cmpId=?'
+        const qu = await pool.query(stm, [req.params.cmpId]);
+        res.send(qu)
+    } catch (err) {
+        res
+            .status(500)
+            .send('Unable to load page. Please check the application logs for more details.')
+            .end();
+    }
+})
 router.get("/", async (req, res) => {
     try {
         const stm = 'select * from JOBS J, COMPANY C where  J.cmpId=C.cmpId'
