@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
         'select  * from  ADMIN_AUTH where email= ? and password=?'
     const result = await pool.query(stm, [pass, email]);
     if (result.length > 0)
-        return res.send('successfully login')
+    return res.send(result.adminId)
     else {
         console.log("Error")
         res.sendStatus(401)

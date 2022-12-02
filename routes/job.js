@@ -28,7 +28,7 @@ router.put("/", async (req, res) => {
 })
 router.get("/", async (req, res) => {
     try {
-        const stm = 'select * from JOBS'
+        const stm = 'select * from JOBS J, COMPANY C where  J.cmpId=C.cmpId'
         const qu = await pool.query(stm);
         res.send(qu)
     } catch (err) {
