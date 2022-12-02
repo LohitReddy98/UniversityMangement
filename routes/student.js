@@ -42,6 +42,19 @@ router.get("/:stuId", async (req, res) => {
             .end();
     }
 })
+router.get("/", async (req, res) => {
+
+    try {
+        const stm = 'select * from  STU_INFO'
+        const result = await pool.query(stm, [req.params.stuId]);
+        res.send(result)
+    } catch (err) {
+        res
+            .status(500)
+            .send('Unable to load page. Please check the application logs for more details.')
+            .end();
+    }
+})
 
 
 router.post("/", async (req, res) => {
