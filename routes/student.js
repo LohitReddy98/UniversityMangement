@@ -55,6 +55,19 @@ router.get("/", async (req, res) => {
             .end();
     }
 })
+router.delete("/:stuId", async (req, res) => {
+    try {
+        const stm = 'delete from STU_INFO where stuId=?'
+        const stm1 = 'delete from STU_AUTH where stuId=?'
+        await pool.query(stm, [parseInt(req.params.stuId)]);
+        await pool.query(stm1, [parseInt(req.params.stuId)]);
+
+        return res.send("Success")
+    }
+    catch {
+        res.status(500)
+    }
+})
 
 
 router.post("/", async (req, res) => {

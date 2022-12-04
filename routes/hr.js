@@ -43,6 +43,25 @@ router.post("/", async (req, res) => {
         res.sendStatus(401)
     }
 })
-
+router.get("/", async (req, res) => {
+    try {
+        const stm = 'select  H.hrId,email,C.name as companyName,H.name as hrName from  HR_AUTH H,COMPANY C where C.cmpId=H.cmpId'
+        const result = await pool.query(stm);
+        return res.send(result)
+    }
+    catch {
+        res.status(500)
+    }
+})
+router.delete("/:hrId", async (req, res) => {
+    try {
+        const stm = 'delete from HR_AUTH where hrId=?'
+        await pool.query(stm, [parseInt(req.params.hrId)]);
+        return res.send("Success")
+    }
+    catch {
+        res.status(500)
+    }
+})
 
 module.exports = router
